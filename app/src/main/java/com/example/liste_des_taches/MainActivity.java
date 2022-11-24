@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,10 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> items;
     private ArrayAdapter<String> itemsAdapter;
     private ListView lvItems;
+    ArrayAdapter myAdapter;
+    EditText inputText1;
+    Integer indexVal;
+    Button  btnUpdate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +54,21 @@ public class MainActivity extends AppCompatActivity {
         itemsAdapter.add(itemText);
         etNewItem.setText("");
     }
+
+    // update items
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            String val = inputText1.getText().toString();
+            items.set(indexVal, val);
+
+            if (!val.isEmpty()) {
+                myAdapter.notifyDataSetChanged();
+                Toast.makeText(MainActivity.this, "tache modifier", Toast.LENGTH_SHORT).show();
+            }
+        }
+    });
 
     // Attaches a long click listener to the listview
     private void setupListViewListener() {
